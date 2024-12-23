@@ -1,0 +1,9 @@
+{
+    "budgets": [
+        {"title": "apply job", "budget": 5, "used": 2, "refresh": "daily"},
+        {"title": "project", "budget": 3, "used": 1, "refresh": "daily"},
+        {"title": "leetcode", "budget": 3, "used": 2, "refresh": "daily"},
+        {"title": "gaming", "budget": 5, "used": 9, "refresh": "daily"},
+        {"title": "exercise", "budget": 9, "used": 2, "refresh": "daily"}
+    ]
+}

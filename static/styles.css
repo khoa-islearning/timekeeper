@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.chart-container {
+    width: 33vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: x-large;
+}
