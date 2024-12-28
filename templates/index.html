@@ -11,9 +11,14 @@
             {%for i in range(len)%}
             <div class="chart-container">
                 <div class="chart">
-                    <img src='data:image/png;base64,{{graphs[i]}}'/>
+                    <!--using matplotlib -->
+                    <!--<img src='data:image/png;base64,{{graphs[i]}}'/>-->
+                    
+                    <!--using pygal-->
+                    <object type='image/svg+xml' data='{{graphs[i]}}'></object>
+
                 </div>
-                <div>{{titles[i]}}</div>
+                <!--<div>{{titles[i]}}</div>-->
             </div>
             {%endfor%}
         </div>

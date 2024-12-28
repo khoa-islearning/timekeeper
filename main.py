@@ -3,8 +3,12 @@ from flask import Flask, render_template
 from io import BytesIO
 
 import json
-from matplotlib.figure import Figure
+
+from pygal import style
+# from matplotlib.figure import Figure
 app = Flask(__name__)
+import pygal
+from pygal.style import Style
 
 
 def read_data():
@@ -12,7 +16,7 @@ def read_data():
     data = json.load(f)
     return data
    
-def create_graph(time_used, time_budget):
+#def create_graph_matplot (time_used, time_budget):
     fig = Figure(figsize=(5,5))
     ax = fig.subplots()
     data = [time_used, max(time_budget-time_used,0)]
@@ -36,6 +40,31 @@ def create_graph(time_used, time_budget):
     data = base64.b64encode(buf.getbuffer()).decode("ascii")
     return data
 
+def create_graph_pygal(time_used, time_budget, title):
+    time_remained = max(time_budget-time_used, 0)
+    custom_style = Style(
+            background='transparent',
+            plot_background='transparent',
+            foreground_strong='white' if time_remained > 0 else '#FF3D00', # the box
+            foreground_subtle='#FF6F00', # the label
+            opacity='.4',
+            opacity_hover='.1',
+            transition='400ms ease-in',
+            colors=('#00BFAE', '#BDC3C7') if time_remained > 0 else ('#FF3D00', '#BDC3C7'),
+            font_family='googlefont:Ubuntu',
+            title_font_family='googlefont:Montserrat',
+            title_font_size=60
+            )
+    
+    pie_chart = pygal.Pie(style = custom_style, half_pie=True, inner_radius=.4)
+    pie_chart.show_legend = False
+    pie_chart.add('time_used', time_used)
+    pie_chart.add('time_budget', time_remained)
+    pie_chart.title = title.upper()
+    svg = pie_chart.render_data_uri()
+
+    return svg
+
 def generate_graphs():
     data = read_data()
     titles = []
@@ -45,7 +74,7 @@ def generate_graphs():
         time_budget = i["budget"]
         time_used = i["used"]
         refresh_rate = i["refresh"]
-        graphs.append(create_graph(time_used, time_budget))
+        graphs.append(create_graph_pygal(time_used, time_budget, title))
         titles.append(title)
     return titles, graphs
 
