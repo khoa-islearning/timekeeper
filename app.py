@@ -85,3 +85,5 @@ def hello_world():
     titles, graphs = generate_graphs()
     return render_template('index.html',titles=titles, graphs=graphs, len=len(graphs))
 
+if __name__ == "__main__":
+    app.run(debug=True)
