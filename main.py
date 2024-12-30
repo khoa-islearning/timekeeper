@@ -53,13 +53,14 @@ def create_graph_pygal(time_used, time_budget, title):
             colors=('#00BFAE', '#BDC3C7') if time_remained > 0 else ('#FF3D00', '#BDC3C7'),
             font_family='googlefont:Ubuntu',
             title_font_family='googlefont:Montserrat',
-            title_font_size=60
+            title_font_size=60,
+            tooltip_font_size=40
             )
     
     pie_chart = pygal.Pie(style = custom_style, half_pie=True, inner_radius=.4)
     pie_chart.show_legend = False
-    pie_chart.add('time_used', time_used)
-    pie_chart.add('time_budget', time_remained)
+    pie_chart.add('Time Used', time_used)
+    pie_chart.add('Time Left', time_remained)
     pie_chart.title = title.upper()
     svg = pie_chart.render_data_uri()
 
